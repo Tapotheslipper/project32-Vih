@@ -1,9 +1,9 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "S:\\visual_studio\\projects\\20.09.2025-tiger\\",
+  "WorkspaceRootPath": "S:\\prog\\GitHub\\project32-Vih\\works\\1-20.09.2025-tiger\\20.09.2025-tiger\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F980CE58-B140-48CF-8863-D2643F5CFA4B}|20.09.2025-tiger\\20.09.2025-tiger.csproj|s:\\visual_studio\\projects\\20.09.2025-tiger\\20.09.2025-tiger\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F980CE58-B140-48CF-8863-D2643F5CFA4B}|20.09.2025-tiger\\20.09.2025-tiger.csproj|s:\\prog\\github\\project32-vih\\works\\1-20.09.2025-tiger\\20.09.2025-tiger\\20.09.2025-tiger\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F980CE58-B140-48CF-8863-D2643F5CFA4B}|20.09.2025-tiger\\20.09.2025-tiger.csproj|solutionrelative:20.09.2025-tiger\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -20,18 +20,14 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Program.cs",
-              "DocumentMoniker": "S:\\visual_studio\\projects\\20.09.2025-tiger\\20.09.2025-tiger\\Program.cs",
+              "DocumentMoniker": "S:\\prog\\GitHub\\project32-Vih\\works\\1-20.09.2025-tiger\\20.09.2025-tiger\\20.09.2025-tiger\\Program.cs",
               "RelativeDocumentMoniker": "20.09.2025-tiger\\Program.cs",
-              "ToolTip": "S:\\visual_studio\\projects\\20.09.2025-tiger\\20.09.2025-tiger\\Program.cs",
+              "ToolTip": "S:\\prog\\GitHub\\project32-Vih\\works\\1-20.09.2025-tiger\\20.09.2025-tiger\\20.09.2025-tiger\\Program.cs",
               "RelativeToolTip": "20.09.2025-tiger\\Program.cs",
-              "ViewState": "AgIAABUAAAAAAAAAAAAAACIAAAAeAAAAAAAAAA==",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAjwBwAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-20T06:03:49.912Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
             }
           ]
         }
