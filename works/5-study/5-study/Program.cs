@@ -1,20 +1,10 @@
-﻿interface IWorker
-{
-    void Work();
-}
+﻿using System;
+namespace TourOfCsharp;
 
-abstract class Employee : IWorker
+class Program
 {
-    public string name { get; set; }
-    public Employee(string name) => this.name = name;
-    public abstract void Work();
-}
-
-class Developer : Employee
-{
-    public Developer(string name) : base(name) { }
-    public override void Work()
+    static void Main()
     {
-        Console.WriteLine($"{this.name} пишет код и сосёт нахуй.");
+        Console.WriteLine("Super puper nova");
     }
 }
