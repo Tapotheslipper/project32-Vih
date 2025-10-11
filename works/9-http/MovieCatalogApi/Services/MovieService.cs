@@ -2,24 +2,29 @@ using MovieCatalogApi.Models;
 
 public class MovieService
 {
+    // fields
     private readonly List<Movie> _movies = new List<Movie>();
 
-    public MovieService()
-    {
-        _movies.Add(new Movie("title-example", "director-example"));
-    }
+    // constructor
+    public MovieService() { }
 
-    public IEnumerable<Movie> GetAllMovies() {
+    // methods
+    public IEnumerable<Movie> GetAllMovies()
+    {
         return _movies;
     }
-    public Movie GetOneMovie(int id) {
-        return _movies[id];
+    public Movie GetOneMovie(int id)
+    {
+        return _movies.ElementAtOrDefault(id);
     }
-    public void AddMovie(Movie mov) {
+    public void AddMovie(Movie mov)
+    {
+        mov.WhenCreated = "1000";
         _movies.Add(mov);
     }
-    public bool UpdateMovie(int id, Movie updatedMovie) {
-        var mov = _movies[id];
+    public bool UpdateMovie(int id, Movie updatedMovie)
+    {
+        var mov = _movies.ElementAtOrDefault(id);
         if (mov == null)
         {
             return false;
@@ -31,7 +36,8 @@ public class MovieService
     }
     public bool DeleteMovie(int id)
     {
-        if (_movies.Count - 1 != id)
+        var movie = _movies.ElementAtOrDefault(id);
+        if (movie == null)
         {
             return false;
         }
