@@ -1,4 +1,4 @@
-namespace MovieCatalogApi;
+namespace MovieCatalogApi.Models;
 
 public class MovieCreateDto
 {
