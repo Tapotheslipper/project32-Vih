@@ -17,12 +17,13 @@ public class MovieService
     {
         return _movies.ElementAtOrDefault(id);
     }
-    public void AddMovie(Movie mov)
+    public int AddOneMovie(Movie mov)
     {
         mov.WhenCreated = "1000";
         _movies.Add(mov);
+        return _movies.IndexOf(mov);
     }
-    public bool UpdateMovie(int id, Movie updatedMovie)
+    public bool UpdateOneMovie(int id, Movie updatedMovie)
     {
         var mov = _movies.ElementAtOrDefault(id);
         if (mov == null)
@@ -34,14 +35,14 @@ public class MovieService
         _movies[id] = mov;
         return true;
     }
-    public bool DeleteMovie(int id)
+    public bool DeleteOneMovie(int id)
     {
         var movie = _movies.ElementAtOrDefault(id);
         if (movie == null)
         {
             return false;
         }
-        _movies.Remove(_movies[id]);
+        _movies.RemoveAt(id);
         return true;
     }
 }

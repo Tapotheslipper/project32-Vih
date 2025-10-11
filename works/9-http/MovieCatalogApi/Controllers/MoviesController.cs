@@ -2,69 +2,73 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Mvc;
 using MovieCatalogApi.Models;
 
-namespace MovieCatalogApi.Controllers
+namespace MovieCatalogApi.Controllers;
+
+[ApiController]
+[Route("api/movies")]
+public class MoviesController : ControllerBase
 {
-    [ApiController]
-    [Route("api/movies")]
-    public class MoviesController : ControllerBase
+    private readonly MovieService _movieService;
+
+    public MoviesController(MovieService movieService)
     {
-        private readonly MovieService _movieService;
+        _movieService = movieService;
+    }
 
-        public MoviesController(MovieService movieService)
-        {
-            _movieService = movieService;
-        }
+    [HttpGet]
+    public IActionResult GetAll()
+    {
+        var movies = _movieService.GetAllMovies();
+        var moviesDTO = movies.Select((mov) => new MovieDTO(mov.Title, mov.Director));
+        return Ok(moviesDTO);
+    }
 
-        [HttpGet]
-        public IActionResult GetAll()
+    [HttpGet("{id}")]
+    public IActionResult GetOne(int id)
+    {
+        var movie = _movieService.GetOneMovie(id);
+        if (movie == null)
         {
-            var movies = _movieService.GetAllMovies();
-            var moviesDTO = movies.Select((mov) => new MovieDTO(mov.Title, mov.Director));
-            return Ok(moviesDTO);
+            return NotFound();
         }
-        
-        [HttpGet("{id}")]
-        public IActionResult GetOne(int id)
-        {
-            var movie = _movieService.GetOneMovie(id);
-            if (movie == null)
-            {
-                return NotFound();
-            }
-            var movieDTO = new MovieDTO(movie.Title, movie.Director);
-            return Ok(movieDTO);
-        }
-        
-        [HttpPost]
-        public IActionResult AddOneMovie([FromBody] MovieDTO movieDTO)
-        {
-            var movie = new Movie(movieDTO.Title, movieDTO.Director, "1000");
-            _movieService.AddMovie(movie);
-            return CreatedAtAction(nameof(GetOne), new { id = _movieService.GetAllMovies().Count() - 1 }, movieDTO);
-        }
-        
-        [HttpPut("{id}")]
-        public IActionResult UpdateOneMovie(int id, [FromBody] MovieDTO updatedMovieDTO)
-        {
-            var updatedMovie = new Movie(updatedMovieDTO.Title, updatedMovieDTO.Director, "1000");
-            var mov = _movieService.UpdateMovie(id, updatedMovie);
-            if (!mov)
-            {
-                return NotFound();
-            }
-            return NoContent();
-        }
+        var movieDTO = new MovieDTO(movie.Title, movie.Director);
+        return Ok(movieDTO);
+    }
 
-        [HttpDelete("{id}")]
-        public IActionResult DeleteOneMovie(int id)
+    [HttpPost]
+    public IActionResult AddMovie([FromBody] MovieDTO movieDTO)
+    {
+        if (movieDTO == null)
         {
-            var mov = _movieService.DeleteMovie(id);
-            if (!mov)
-            {
-                return NotFound();
-            }
-            return NoContent();
+            return BadRequest("Данные введены некорректно.");
         }
+        var movie = new Movie(movieDTO.Title, movieDTO.Director, "1000");
+        var index = _movieService.AddOneMovie(movie);
+        var uri = Url.Action("GetOne", new { id = index });
+        return Created(uri, movieDTO);
+    }
+
+    [HttpPut("{id}")]
+    public IActionResult UpdateMovie(int id, [FromBody] MovieDTO updatedMovieDTO)
+    {
+        var updatedMovie = new Movie(updatedMovieDTO.Title, updatedMovieDTO.Director, "1000");
+        var mov = _movieService.UpdateOneMovie(id, updatedMovie);
+        if (!mov)
+        {
+            return NotFound();
+        }
+        return Ok(updatedMovieDTO);
+    }
+
+    [HttpDelete("{id}")]
+    public IActionResult DeleteMovie(int id)
+    {
+        var mov = _movieService.DeleteOneMovie(id);
+        if (!mov)
+        {
+            return NotFound();
+        }
+        return NoContent();
     }
 }
 
