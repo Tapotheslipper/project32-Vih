@@ -1,10 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
 
-public class HomeyController : Controller {
-    public IActionResult Index() {
+public class HomeyController : Controller
+{
+    public IActionResult Index()
+    {
         return View();
     }
-    public IActionResult About() {
+    public IActionResult About()
+    {
         return View();
     }
 }
