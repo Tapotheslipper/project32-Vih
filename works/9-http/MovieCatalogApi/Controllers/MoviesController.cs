@@ -8,17 +8,11 @@ namespace MovieCatalogApi.Controllers
     [Route("api/movies")]
     public class MoviesController : ControllerBase
     {
-        private readonly MovieService _movieService;
-
-        public MoviesController(MovieService movieService)
-        {
-            _movieService = movieService;
-        }
+        private static List<Movie> movies = new List<Movie> {};
 
         [HttpGet]
         public IActionResult GetAll()
         {
-            var movies = _movieService.GetAllMovies();
             var moviesDTO = movies.Select((mov) => new MovieDTO(mov.Title, mov.Director));
             return Ok(moviesDTO);
         }
@@ -26,7 +20,7 @@ namespace MovieCatalogApi.Controllers
         [HttpGet("{id}")]
         public IActionResult GetOne(int id)
         {
-            var movie = _movieService.GetOneMovie(id);
+            var movie = movies.ElementAtOrDefault(id);
             if (movie == null)
             {
                 return NotFound();
@@ -39,30 +33,33 @@ namespace MovieCatalogApi.Controllers
         public IActionResult AddOneMovie([FromBody] MovieDTO movieDTO)
         {
             var movie = new Movie(movieDTO.Title, movieDTO.Director, "1000");
-            _movieService.AddMovie(movie);
-            return CreatedAtAction(nameof(GetOne), new { id = _movieService.GetAllMovies().Count() - 1 }, movieDTO);
+            movies.Add(movie);
+            var newMovieId = movies.Count - 1;
+            return CreatedAtAction(nameof(GetOne), new { id = newMovieId }, movieDTO);
         }
         
         [HttpPut("{id}")]
         public IActionResult UpdateOneMovie(int id, [FromBody] MovieDTO updatedMovieDTO)
         {
-            var updatedMovie = new Movie(updatedMovieDTO.Title, updatedMovieDTO.Director, "1000");
-            var mov = _movieService.UpdateMovie(id, updatedMovie);
-            if (!mov)
+            var mov = movies.ElementAtOrDefault(id);
+            if (mov == null)
             {
                 return NotFound();
             }
+            mov.Title = updatedMovieDTO.Title;
+            mov.Director = updatedMovieDTO.Director;
             return NoContent();
         }
 
         [HttpDelete("{id}")]
         public IActionResult DeleteOneMovie(int id)
         {
-            var mov = _movieService.DeleteMovie(id);
-            if (!mov)
+            var mov = movies.ElementAtOrDefault(id);
+            if (mov == null)
             {
                 return NotFound();
             }
+            movies.RemoveAt(id);
             return NoContent();
         }
     }
