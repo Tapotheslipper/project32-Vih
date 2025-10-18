@@ -41,7 +41,6 @@ public class ContactsController : ControllerBase
             return BadRequest("Данный номер уже существует.");
         }
         _contacts.Add(c.PhoneNum, c);
-        // var uri = Url.Action(nameof(GetOne), new { id = c.PhoneNum });
         return NoContent();
     }
     [HttpPost("business")]
@@ -52,15 +51,6 @@ public class ContactsController : ControllerBase
             return BadRequest("Данный номер уже существует.");
         }
         _contacts.Add(c.PhoneNum, c);
-        // var uri = Url.Action(nameof(GetOne), new { id = c.PhoneNum });
         return NoContent();
     }
-    // [HttpPut]
-    // public ActionResult UpdateContact()
-    // [HttpDelete("{id}")]
-    // public ActionResult DeleteContact(int id)
-    // {
-    //     _contactService.DeleteContact(id);
-    //     return NoContent();
-    // }
 }
