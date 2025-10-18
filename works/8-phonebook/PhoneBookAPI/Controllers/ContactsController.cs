@@ -5,8 +5,13 @@ using Microsoft.AspNetCore.Mvc;
 public class ContactsController : ControllerBase
 {
     // fields
+<<<<<<< Updated upstream
     private readonly Dictionary<string, Contact> _contacts;
 
+=======
+    private static ContactService _contactService;
+    
+>>>>>>> Stashed changes
     // constructor
     public ContactsController()
     {
