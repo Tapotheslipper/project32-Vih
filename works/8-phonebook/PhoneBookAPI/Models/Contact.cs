@@ -5,7 +5,7 @@ public abstract class Contact
     public string PhoneNum { get; set; }
 
     // constructor
-    protected Contact(string name, string phone)
+    public Contact(string name, string phone)
     {
         FullName = name;
         PhoneNum = phone;

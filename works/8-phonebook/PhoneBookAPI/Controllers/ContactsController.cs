@@ -31,7 +31,7 @@ public class ContactsController : ControllerBase
             var contact = _contacts[key];
             return Ok(contact);
         }
-        return BadRequest();
+        return NotFound();
     }
     [HttpPost("personal")]
     public IActionResult AddPersonal([FromBody] PersonalContact c)
