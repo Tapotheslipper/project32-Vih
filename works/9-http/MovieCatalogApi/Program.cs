@@ -6,6 +6,9 @@ var app = builder.Build();
 <<<<<<< Updated upstream
 =======
 
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 app.MapControllers();
 

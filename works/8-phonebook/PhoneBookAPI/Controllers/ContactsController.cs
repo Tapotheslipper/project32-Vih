@@ -6,9 +6,12 @@ public class ContactsController : ControllerBase
 {
     // fields
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     private readonly Dictionary<string, Contact> _contacts;
 
 =======
+=======
+>>>>>>> Stashed changes
     private static ContactService _contactService;
     
 >>>>>>> Stashed changes
