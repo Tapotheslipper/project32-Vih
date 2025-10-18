@@ -2,47 +2,65 @@ using Microsoft.AspNetCore.Mvc;
 
 [Route("api/phonebook")]
 [ApiController]
-public class ContactController : ControllerBase
+public class ContactsController : ControllerBase
 {
     // fields
-    private readonly ContactService _contactService;
-    
+    private readonly Dictionary<string, Contact> _contacts;
+
     // constructor
-    public ContactController(ContactService contactService)
+    public ContactsController()
     {
-        _contactService = contactService;
+        _contacts = new Dictionary<string, Contact>
+        {
+            {"personalPlaceholder", new PersonalContact("nameP", "123")},
+            {"businessPlaceholder", new BusinessContact("nameB", "456")}
+        };
     }
 
     // methods
     [HttpGet]
-    public ActionResult<IEnumerable<string>> GetAll()
+    public IActionResult GetAll()
     {
-        var contacts = _contactService.GetAllContacts();
+        var contacts = _contacts;
         return Ok(contacts);
     }
-    // [HttpGet]
-    // public ActionResult GetOne(int id) {
-    //     var contact = _contactService.GetContactById(id);
-    //     return Ok(contact);
-    // }
+    [HttpGet("{key}")]
+    public IActionResult GetOne(string key) {
+        if (_contacts.ContainsKey(key))
+        {
+            var contact = _contacts[key];
+            return Ok(contact);
+        }
+        return BadRequest();
+    }
     [HttpPost("personal")]
-    public ActionResult AddPersonal([FromBody] PersonalContact newC)
+    public IActionResult AddPersonal([FromBody] PersonalContact c)
     {
-        _contactService.AddContact(newC);
-        return CreatedAtAction(nameof(GetAll), new { }, newC);
+        if (_contacts.ContainsKey(c.PhoneNum))
+        {
+            return BadRequest("Данный номер уже существует.");
+        }
+        _contacts.Add(c.PhoneNum, c);
+        // var uri = Url.Action(nameof(GetOne), new { id = c.PhoneNum });
+        return NoContent();
     }
     [HttpPost("business")]
-    public ActionResult AddBusiness([FromBody] BusinessContact newC)
+    public IActionResult AddBusiness([FromBody] BusinessContact c)
     {
-        _contactService.AddContact(newC);
-        return CreatedAtAction(nameof(GetAll), new { }, newC);
+        if (_contacts.ContainsKey(c.PhoneNum))
+        {
+            return BadRequest("Данный номер уже существует.");
+        }
+        _contacts.Add(c.PhoneNum, c);
+        // var uri = Url.Action(nameof(GetOne), new { id = c.PhoneNum });
+        return NoContent();
     }
     // [HttpPut]
     // public ActionResult UpdateContact()
-    [HttpDelete("{id}")]
-    public ActionResult DeleteContact(int id)
-    {
-        _contactService.DeleteContact(id);
-        return NoContent();
-    }
+    // [HttpDelete("{id}")]
+    // public ActionResult DeleteContact(int id)
+    // {
+    //     _contactService.DeleteContact(id);
+    //     return NoContent();
+    // }
 }
